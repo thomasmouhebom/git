@@ -14,4 +14,4 @@
         image: devops-app
         state: started
         ports:
-          - "8080:80"
+          - "8082:80"
