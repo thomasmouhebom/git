@@ -5,7 +5,7 @@
       community.docker.docker_image:
         name: devops-app
         build:
-          path: ../app   # chemin vers Dockerfile
+          path: ../app   # <-- chemin vers le dossier contenant Dockerfile
         state: present
 
     - name: Run Docker container
