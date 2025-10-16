@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Chemin vers ton playbook Ansible
+        // Assure-toi que Docker et Ansible sont dans le PATH
+        PATH = "/usr/local/bin:/usr/bin:/bin:${env.PATH}"
         ANSIBLE_PLAYBOOK = 'ansible/playbook.yml'
     }
 
@@ -10,7 +11,7 @@ pipeline {
 
         stage('Checkout GitHub via SSH') {
             steps {
-                // Cloner le dépôt en SSH
+                // Cloner le dépôt via SSH
                 git branch: 'main',
                     url: 'git@github.com:thomasmouhebom/git.git',
                     credentialsId: 'ssh-github-credentials'
