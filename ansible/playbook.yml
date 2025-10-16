@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  become: true
+  become: false
   tasks:
     - name: Build Docker image
       community.docker.docker_image:
