@@ -1,16 +1,37 @@
 pipeline {
     agent any
+
+    environment {
+        // Chemin vers ton playbook Ansible
+        ANSIBLE_PLAYBOOK = 'ansible/playbook.yml'
+    }
+
     stages {
-        stage('Git Clone') {
+
+        stage('Checkout GitHub via SSH') {
             steps {
-                git branch: 'main', url: 'https://github.com/ton-utilisateur/ton-repo.git'
+                // Cloner le dépôt en SSH
+                git branch: 'main',
+                    url: 'git@github.com:thomasmouhebom/git.git',
+                    credentialsId: 'ssh-github-credentials'
             }
         }
+
         stage('Deploy with Ansible') {
             steps {
-                sh 'ansible-playbook ansible/playbook.yml'
+                // Lancer le playbook Ansible
+                sh "ansible-playbook ${ANSIBLE_PLAYBOOK}"
             }
+        }
+
+    }
+
+    post {
+        success {
+            echo 'Pipeline terminé avec succès ! 🚀'
+        }
+        failure {
+            echo 'Erreur dans le pipeline ❌'
         }
     }
 }
-
