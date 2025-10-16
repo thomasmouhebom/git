@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Build Docker image
+      community.docker.docker_image:
+        name: devops-app
+        build:
+          path: ../app
+
+    - name: Run Docker container
+      community.docker.docker_container:
+        name: devops-app
+        image: devops-app
+        state: started
+        ports:
+          - "8080:80"
+
