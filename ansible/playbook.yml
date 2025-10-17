@@ -4,13 +4,14 @@
     - name: Build Docker image
       community.docker.docker_image:
         name: devops-app
+        source: build
         build:
-          path: ../app   # <-- chemin vers le dossier contenant Dockerfile
+          path: ../app
         state: present
 
     - name: Run Docker container
       community.docker.docker_container:
-        name: devops-app
+        name: devops-container
         image: devops-app
         state: started
         ports:
